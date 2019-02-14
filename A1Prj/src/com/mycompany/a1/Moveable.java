@@ -22,6 +22,10 @@ public abstract class Moveable extends GameObject{
 		return this.speed;
 	}
 	
+	public void setSpeed(int speed){
+		this.speed = speed;
+	}
+	
 	
 	public String toString() {
 		String ParentOutput = super.toString();
@@ -30,13 +34,15 @@ public abstract class Moveable extends GameObject{
 		return ParentOutput + output;
 	}
 	public void move(){
-		Point2D center=null;
 		double deltaX = Math.cos(Math.toRadians(90-this.getHeading()*this.getSpeed()));
 		double deltaY = Math.sin(Math.toRadians(90-this.getHeading()*this.getSpeed()));
-		center.setX(deltaX);
-		center.setY(deltaY);
+		Point2D center= new Point2D(deltaX,deltaY);
 		this.setLocation(center);
 		
+	}
+	
+	public void adjustHeading(int direction){
+		this.heading = this.heading + direction;
 	}
 	
 	//I do not know if this is the correct way to do this

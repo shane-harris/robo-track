@@ -9,12 +9,14 @@ public class GameWorld {
 	private double originX;
 	private double originY;
 	private int clock;
+	private int lives;
 	
 	public GameWorld() {
 		this.width   = 1024.0;
 		this.height  = 768.0;
 		this.originX = 0.0;
 		this.originY = 0.0;
+		this.lives   = 3;
 		this.clock   = 0;
 	}
 	
