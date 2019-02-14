@@ -16,17 +16,22 @@ public class GameWorld {
 		this.height  = 768.0;
 		this.originX = 0.0;
 		this.originY = 0.0;
-		this.lives   = 3;
-		this.clock   = 0;
+		
 	}
 	
 	public void init() {
 		gameObjects = new ArrayList<GameObject>();
+		this.lives   = 3;
+		this.clock   = 0;
 		
 		
 	}
 	
 	public void display() {
+		
+	}
+	
+	public void map() {
 		
 	}
 	

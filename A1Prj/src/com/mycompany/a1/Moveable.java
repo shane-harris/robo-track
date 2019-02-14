@@ -26,6 +26,9 @@ public abstract class Moveable extends GameObject{
 		this.speed = speed;
 	}
 	
+	public void setHeading(int heading){
+		this.heading = heading;
+	}
 	
 	public String toString() {
 		String ParentOutput = super.toString();

@@ -15,7 +15,8 @@ public class Drone extends Moveable{
 	//This could also be a bad practice.
 	public Drone() {
 		super(MAX_SPEED, 0, size, ColorUtil.BLACK, setLocation());
-		randomHeading();
+		Random ran = new Random();
+		this.setHeading(ran.nextInt(360)); //sets random heading for
 	}
 	
 	public void randomHeading() {
