@@ -40,80 +40,80 @@ public class Game extends Form{
 				if(sCommand.length() > 0) {
 				switch (sCommand.charAt(0)) {
 					case 'a':
-						ToastBar.showInfoMessage("GameWorld accelorate");
-						myTextField.clear();
+						ToastBar.showInfoMessage("GameWorld accelerate");
+						gw.accelerate();
 					break;
 					case 'b':
 						ToastBar.showInfoMessage("GameWorld break");
-						myTextField.clear();
+						gw.brake();
 					break;
 					case 'l':
 						ToastBar.showInfoMessage("Steer Robot Left");
-						myTextField.clear();
+						gw.steerLeft();
 					break;
 					case 'r':
 						ToastBar.showInfoMessage("Steer Robot Right");
-						myTextField.clear();
+						gw.steerRight();
 					break;
 					case 'c':
 						ToastBar.showInfoMessage("PRETEND Robot collided with another robot");
-						myTextField.clear();
+						gw.pretendRobotCollision();
 					break;
 					case '1':
 						ToastBar.showInfoMessage("PRETEND Robot collided with BASE #1");
-						myTextField.clear();
+						gw.pretendBaseCollision(sCommand.charAt(0) -'0');
 					break;
 					case '2':
 						ToastBar.showInfoMessage("PRETEND Robot collided with BASE #2");
-						myTextField.clear();
+						gw.pretendBaseCollision(sCommand.charAt(0) -'0');
 					break;
 					case '3':
 						ToastBar.showInfoMessage("PRETEND Robot collided with BASE #3");
-						myTextField.clear();
+						gw.pretendBaseCollision(sCommand.charAt(0) -'0');
 					break;
 					case '4':
 						ToastBar.showInfoMessage("PRETEND Robot collided with BASE #4");
-						myTextField.clear();
+						gw.pretendBaseCollision(sCommand.charAt(0) -'0');
 					break;
 					case '5':
 						ToastBar.showInfoMessage("PRETEND Robot collided with BASE #5");
-						myTextField.clear();
+						gw.pretendBaseCollision(sCommand.charAt(0) -'0');
 					break;
 					case '6':
 						ToastBar.showInfoMessage("PRETEND Robot collided with BASE #6");
-						myTextField.clear();
+						gw.pretendBaseCollision(sCommand.charAt(0) -'0');
 					break;
 					case '7':
 						ToastBar.showInfoMessage("PRETEND Robot collided with BASE #7");
-						myTextField.clear();
+						gw.pretendBaseCollision(sCommand.charAt(0) -'0');
 					break;
 					case '8':
 						ToastBar.showInfoMessage("PRETEND Robot collided with BASE #8");
-						myTextField.clear();
+						gw.pretendBaseCollision(sCommand.charAt(0) -'0');
 					break;
 					case '9':
 						ToastBar.showInfoMessage("PRETEND Robot collided with BASE #9");
-						myTextField.clear();
+						gw.pretendBaseCollision(sCommand.charAt(0) -'0');
 						break;
 					case 'e':
 						ToastBar.showInfoMessage("PRETEND Robot collided with EnergyStation");
-						myTextField.clear();
+						gw.pretendEnergyStationCollision();
 						break;
 					case 'g':
 						ToastBar.showInfoMessage("PRETEND Robot collided with Drone got slower");
-						myTextField.clear();
+						gw.pretendDroneCollision();
 						break;					
 					case 't':
 						ToastBar.showInfoMessage("Tell GameWorld to tick the clock");
-						myTextField.clear();
+						gw.tick();
 						break;
 					case 'd':
 						ToastBar.showInfoMessage("Generate Display Lines to console");
-						myTextField.clear();
+						gw.display();
 						break;
 					case 'm':
 						ToastBar.showInfoMessage("Tell GameWorld to output map");
-						myTextField.clear();
+						gw.map();
 						break;
 					case 'x'://Confirm the user wants to exit Game
 						ToastBar.showInfoMessage("Are you sure you want to Exit? 'y' or 'n'");
