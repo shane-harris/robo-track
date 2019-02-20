@@ -10,6 +10,7 @@ import com.codename1.ui.geom.Point2D;
  *
  */
 public abstract class Fixed extends GameObject{
+	
 	/**
 	 * This constructs a fixed GameWorld object
 	 * @param size the size of the object, size is the length of one side of the 4 sided GameWorld object

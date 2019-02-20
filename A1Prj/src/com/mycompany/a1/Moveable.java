@@ -2,10 +2,27 @@ package com.mycompany.a1;
 
 import com.codename1.ui.geom.Point2D;
 
+/**
+ * This class implements a Moveable GameWorld object. This class
+ * extends the GameWorld object class
+ * @author Shane Harris
+ * @version 1.0
+ *
+ */
 public abstract class Moveable extends GameObject{
 	private int heading;
 	private int   speed;
 	
+	/**
+	 * This constructs a Moveable object with a specified
+	 * speed, heading, size, color, and location.
+	 * 
+	 * @param speed   the initial speed of this Moveable object
+	 * @param heading the initial heading of this Moveable object
+	 * @param size    the length of one side of this Moveable object
+	 * @param color   the initial color of this Moveable object
+	 * @param center  The initial location of this Moveable object
+	 */
 	public Moveable(int speed, int heading, int size, int color, Point2D center) {
 		super(size, color, center);
 		this.speed = speed;
@@ -13,6 +30,10 @@ public abstract class Moveable extends GameObject{
 		
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getHeading(){
 		return this.heading;
 	}

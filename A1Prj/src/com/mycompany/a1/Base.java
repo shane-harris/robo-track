@@ -47,7 +47,7 @@ public class Base extends Fixed{
 	 * This method calls the toString method in GameObject and adds 
 	 * this Base's sequence number to the string that was returned
 	 * from the super.toString() call. 
-	 * @return All the relevent paramaters of this Base Object. Location, Size, Color, Sequence Number
+	 * @return String containing all the relevent paramaters of this Base Object. Location, Size, Color, Sequence Number
 	 */
 	public String toString() {
 		String parentOutput = "Base: ";

@@ -76,7 +76,7 @@ public class EnergyStation extends Fixed{
 	 * This method calls the toString method in GameObject and adds 
 	 * this EnergyStation's capacity to the string that was returned
 	 * from the super.toString() call. 
-	 * @return All the relevent paramaters of this EnergyStation Object. Location, Size, Color, Capacity
+	 * @return String containing all the relevent paramaters of this EnergyStation Object. Location, Size, Color, Capacity
 	 */
 	public String toString() {
 		String parentOutput = "EnergyStation: ";
