@@ -5,7 +5,6 @@ import com.codename1.ui.geom.Point2D;
 public abstract class Moveable extends GameObject{
 	private int heading;
 	private int   speed;
-	private Point2D center;
 	
 	public Moveable(int speed, int heading, int size, int color, Point2D center) {
 		super(size, color, center);
@@ -48,8 +47,7 @@ public abstract class Moveable extends GameObject{
 			deltaY = 0;
 		if(deltaY > 768)
 			deltaY = 768;
-		Point2D newCenter= new Point2D(deltaX,deltaY);
-		this.setLocation(newCenter);
+		this.setLocation(new Point2D(deltaX,deltaY));
 		
 	}
 	
@@ -61,14 +59,5 @@ public abstract class Moveable extends GameObject{
 		else
 			this.heading = this.heading + direction;
 	}
-	
-	//I do not know if this is the correct way to do this
-	//I have center as a private variable in GameObject class
-	//but because it gets modified when an object moves
-	//i dont know if i should not have it as part of the 
-	//game object constructor.
-	/*private void setLocation(Point2D center){
-		this.center = center;
-	}*/
 
 }

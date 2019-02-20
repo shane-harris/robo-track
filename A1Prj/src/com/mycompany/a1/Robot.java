@@ -3,6 +3,15 @@ package com.mycompany.a1;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.geom.Point2D;
 
+/**
+ * This class implements a Robot object. This class
+ * extends the Moveable object class and implements the ISteerable class
+ * This class utalizes a singleton design pattern to ensure only one instance
+ * of Robot can be instantiated
+ * @author Shane Harris
+ * @version 1.0
+ *
+ */
 public class Robot extends Moveable implements ISteerable {
 
 	final static int size = 10;
@@ -18,7 +27,15 @@ public class Robot extends Moveable implements ISteerable {
 	private int lastBaseReached;
 	private static Robot myRobot;
 
-	// Private constructor prevents multiple instances of Robot
+	/**
+	 * This private constructor ensures that no method outside this calss can access this constructor
+	 * This constructs a single Robot object with a specified speed, heading, size, color, and location.
+	 * @param speed the initial speed of this Robot is 10
+	 * @param heading the initial heading of this Robot always 0
+	 * @param size the length of one side of this Robot final 10
+	 * @param color the initial color of this Robot BLUE
+	 * @param center The initial location of this Robot initialised to 0.0, 0.0
+	 */
 	private Robot(int speed, int heading, int size, int color, Point2D center) {
 		super(speed, heading, size, color, center);
 		this.energyLevel = 100;
@@ -29,58 +46,140 @@ public class Robot extends Moveable implements ISteerable {
 		this.steeringDirection = 0;
 	}
 
-	// Method called to instanciate a Robot object if none exist
+	/**
+	 * This method ensures that only ONE instance of Robot can exist during the game
+	 * This method checks to see if a Robot object exist. If not then one is created
+	 * if one exist then this Robot is returned.
+	 * @return only one unique instance of Robot. If called gain then the same instance is returned again.
+	 */
 	public static Robot getRobot() {
 		if (myRobot == null) {
 			Point2D center = new Point2D(0, 0);
-			// center.setX(size/2);
-			// center.setY(size/2);
 			myRobot = new Robot(10, 0, size, ColorUtil.BLUE, center);
 		}
 		return myRobot;
 	}
-
+	
+	/**
+	 * This method resets all the Robot parameters back to their initialized values
+	 * This method is only called in the event that the Robot looses a life
+	 */
+	public void respawn() {
+		this.setDamageLevel(0);
+		this.setEnergyLevel(100);
+		this.setLastBasereached(1);
+		this.setMaxSpeed(40);
+		this.setSteeringDirection(0);
+		this.setSpeed(10);
+		this.setColor(ColorUtil.BLUE);
+		this.setLocation(new Point2D(0.0,0.0));
+		
+	}
+	
+	/**
+	 * Returns the current max speed of this Robot
+	 * @return this Robots current max speed
+	 */
 	public int getMaxSpeed() {
 		return this.maxSpeed;
 	}
-
+	
+	/**
+	 * Returns the current steering direction of this Robot
+	 * @return this Robots current steering direction
+	 */
 	public int getSteeringDirection() {
 		return this.steeringDirection;
 	}
-
+	
+	/**
+	 * Returns the current energy level of this Robot
+	 * @return this Robots current energy level
+	 */
 	public int getEnergyLevel() {
 		return this.energyLevel;
 	}
 
+	/**
+	 * Returns the current damage level of this Robot
+	 * @return this Robots current damage level
+	 */
 	public int getDamageLevel() {
 		return this.damageLevel;
 	}
 
+	/**
+	 * Returns the current last base reached by this Robot
+	 * @return this Robots current last base reached
+	 */
 	public int getLastBaseReached() {
 		return this.lastBaseReached;
 	}
 
+	/**
+	 * This method itterated that last base reached by this Robot
+	 * This method is called when this Robot collides with the 
+	 * next base in the sequence of Base objects
+	 */
 	public void updateLastBaseReached() {
 		this.lastBaseReached++;
 	}
-
+	
+	/**
+	 * This method sets the damage level of this Robot
+	 * this method is called when this Robot collides
+	 * with a Drone object or another Robot object or 
+	 * if this Robot looses a life and is reset
+	 * @param damage the damage this Robot recieves from a collision or when reset
+	 */
 	private void setDamageLevel(int damage) {
 		this.damageLevel = damage;
 	}
-
+	
+	/**
+	 * This method sets this Robots last Base reached variable
+	 * This method is called if this Robot dies and the game is reset
+	 * @param lastBaseReached the last Base this Robot collided with in the Base object sequence
+	 */
+	private void setLastBasereached(int lastBaseReached){
+		this.lastBaseReached = lastBaseReached;
+	}
+	
+	/**
+	 * This method sets this Robots energy level
+	 * This method is called when this Robot moves, 
+	 * collides with an EnergyStation objece or is reset
+	 * @param charge this robots new energy level
+	 */
 	private void setEnergyLevel(int charge) {
 		this.energyLevel = charge;
 	}
 
+	/**
+	 * This method sets this Robots maximum speed
+	 * This method is called when this Robot recieves damage 
+	 * or is reset 
+	 * @param maxSpeed the maximum speed of this Robot
+	 */
 	private void setMaxSpeed(int maxSpeed) {
 		this.maxSpeed = maxSpeed;
 	}
 
+	/**
+	 * This method sets this Robots steering direction
+	 * This method is called by the steer() method 
+	 * or when this Robot is reset
+	 * @param steeringDirection the current steering direction of this Robot
+	 */
 	private void setSteeringDirection(int steeringDirection) {
 		this.steeringDirection = steeringDirection;
 	}
 
-	// will accelorate robot
+	/**
+	 * This method incrases/decreases this Robots speed
+	 * This Robots speed is limited by this Robots maximum speed and cannot be less than zero
+	 * @param accelerate the ammount of speed to be added/subtracted from this Robots current speed
+	 */
 	public void accelorateRobot(int accelerate) {
 		if (this.getEnergyLevel() > 0) {
 			if (this.getSpeed() + accelerate >= this.getMaxSpeed())
@@ -94,9 +193,11 @@ public class Robot extends Moveable implements ISteerable {
 
 	// Robot Color will change depending on the amount of damage it has sustained
 	public void applyDamage(int damage) {
-		this.setDamageLevel(this.getDamageLevel() - damage);
-
-		this.setMaxSpeed(40 - (40 * (this.getDamageLevel() / 100)));
+		this.setDamageLevel(this.getDamageLevel() + damage);
+		//Adjusting maxSpeed to be proportional to Robot Damage
+		this.setMaxSpeed((int)(40.0 - (40.0 * ((double)this.getDamageLevel() / 100.0))));
+		int newSpeed = (int)((40 - (40 * ((double)this.getDamageLevel() / 100))));
+		System.out.println("Max speed should be "+newSpeed+".");
 
 		if (this.getSpeed() > this.getMaxSpeed())
 			super.setSpeed(this.getMaxSpeed());
@@ -148,7 +249,7 @@ public class Robot extends Moveable implements ISteerable {
 		parentOutput += super.toString();
 		String output;
 		output = "maxSpeed=" + this.getMaxSpeed() + ", steeringDirection=" + this.getSteeringDirection()
-				+ ", energyLevel= " + this.getEnergyLevel() + ", damageLevel=" + this.getDamageLevel() + "\n";
+				+ ", energyLevel=" + this.getEnergyLevel() + ", damageLevel=" + this.getDamageLevel() + "\n";
 		return parentOutput + output;
 	}
 

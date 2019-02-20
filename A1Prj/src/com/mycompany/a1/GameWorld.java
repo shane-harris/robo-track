@@ -1,21 +1,15 @@
 package com.mycompany.a1;
 
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Random;
-
 import com.codename1.components.ToastBar;
-import com.codename1.messaging.Message;
 import com.codename1.ui.Form;
-import com.codename1.ui.Label;
 import com.codename1.ui.geom.Point2D;
-import com.codename1.ui.layouts.BoxLayout;
 
 public class GameWorld extends Form{
 	private ArrayList<GameObject> gameObjects;
-	private double width;
-	private double height;
+	final private double width;
+	final private double height;
 	private double originX;
 	private double originY;
 	private Point2D point;
@@ -102,16 +96,23 @@ public class GameWorld extends Form{
 			}
 			if (gO instanceof Robot) {
 				((Robot) gO).consumeEnergy(); // energy consumed after move
+				if(((Robot) gO).getEnergyLevel() == 8) {
+					System.out.println("Robot is out of energy life lost");
+					lives--;
+					((Robot) gO).respawn();
+					init();
+				}
+				if(((Robot) gO).getDamageLevel() == 100) {
+					System.out.println("Robot damage is 100% life lost");
+					lives--;
+					((Robot) gO).respawn();
+					init();
+				}
 			}
 			if (gO instanceof Drone) {
 				((Drone) gO).randomHeading();// aulters Drone heading after move
 			}
-			if (gO instanceof EnergyStation) {
-
-			}
-			if (gO instanceof Base) {
-
-			}
+			
 		}
 
 	}
@@ -125,18 +126,7 @@ public class GameWorld extends Form{
 		 * (4) the robot’s current energy level and (5) robot’s current damage level.
 		 * All output should be appropriately labeled in easily readable format.
 		 */
-		/*Message display = new Message("This is a test");
-		OutputStream mess = "Please work";
-		PrintStream test = new PrintStream(mess);*/
 		
-		/*Form message = new Form();
-        message.add(new Label("Hope this works"));
-        //message.getToolbar().setTitleCentered(true);
-        message.show();*/
-        /*Label again = new Label("Try this now");
-        this.addComponent(again);
-        //this.show();
-        this.showNativeOverlay();*/
 		String displayAll="";
 		displayAll += "Lives= " + this.getLives() +" , ";
 		displayAll += "Clock= " + this.getClock() +"\n";
@@ -271,9 +261,7 @@ public class GameWorld extends Form{
 			if (gO instanceof Robot) {
 				if (sequenceNumber == ((Robot) gO).getLastBaseReached()+1)
 					((Robot) gO).updateLastBaseReached();
-			} //else
-				//ToastBar.showInfoMessage("Base number " + sequenceNumber + " is not the next base. proceded to base "
-						//+ (((Robot) gO).getLastBaseReached() + 1) + ".");
+			}
 		}
 
 	}
