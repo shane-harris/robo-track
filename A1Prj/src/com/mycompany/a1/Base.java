@@ -20,5 +20,16 @@ public class Base extends Fixed{
 	public void setColor(int color){
 		super.setColor(super.getColor());
 	}
+	
+	//Testing out setLocation method with no definition
+	public void setLocation(){}
+	
+	public String toString() {
+		String parentOutput = "Base: ";
+		       parentOutput += super.toString();
+		String output;
+		output = "seqNum=" + this.getSequenceNumber()+"\n";
+		return parentOutput + output;
+	}
 
 }

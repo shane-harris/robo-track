@@ -44,5 +44,14 @@ public class EnergyStation extends Fixed{
 	public void resetCapacity(){
 		this.capacity = super.getSize();
 	}
+	
+	
+	public String toString() {
+		String parentOutput = "EnergyStation: ";
+			   parentOutput += super.toString();
+		String output;
+		output = "capacity=" + this.getCapacity()+"\n";
+		return parentOutput + output;
+	}
 
 }

@@ -37,15 +37,29 @@ public abstract class Moveable extends GameObject{
 		return ParentOutput + output;
 	}
 	public void move(){
-		double deltaX = Math.cos(Math.toRadians(90-this.getHeading()*this.getSpeed()));
-		double deltaY = Math.sin(Math.toRadians(90-this.getHeading()*this.getSpeed()));
-		Point2D center= new Point2D(deltaX,deltaY);
-		this.setLocation(center);
+		Point2D oldLocation = this.getLocation();
+		double deltaX = oldLocation.getX() + Math.cos(Math.toRadians(90-this.getHeading()))*this.getSpeed();
+		double deltaY = oldLocation.getY() + Math.sin(Math.toRadians(90-this.getHeading()))*this.getSpeed();
+		if(deltaX < 0)
+			deltaX = 0;
+		if(deltaX > 1024)
+			deltaX =1024;
+		if(deltaY < 0)
+			deltaY = 0;
+		if(deltaY > 768)
+			deltaY = 768;
+		Point2D newCenter= new Point2D(deltaX,deltaY);
+		this.setLocation(newCenter);
 		
 	}
 	
 	public void adjustHeading(int direction){
-		this.heading = this.heading + direction;
+		if(this.heading + direction > 359)
+			this.heading = Math.abs(this.heading+direction) - 360;
+		if(this.heading + direction < 0)
+			this.heading = 360 - Math.abs(this.heading + direction);
+		else
+			this.heading = this.heading + direction;
 	}
 	
 	//I do not know if this is the correct way to do this
@@ -53,8 +67,8 @@ public abstract class Moveable extends GameObject{
 	//but because it gets modified when an object moves
 	//i dont know if i should not have it as part of the 
 	//game object constructor.
-	private void setLocation(Point2D center){
+	/*private void setLocation(Point2D center){
 		this.center = center;
-	}
+	}*/
 
 }

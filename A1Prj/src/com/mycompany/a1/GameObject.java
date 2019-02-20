@@ -33,11 +33,14 @@ public abstract class GameObject {
 	public void setColor(int color){
 		this.color = color;
 	}
+	public void setLocation(Point2D center){
+		this.center = center;
+	}
 
 	public String toString() {
-		String output;
-		output = "Loc=" + this.getLocation().getX() + "," + this.getLocation().getY() + " color=" + "["
-				+ ColorUtil.red(this.getColor()) + "," + ColorUtil.green(this.getColor()) + "," + ColorUtil.blue(this.getColor())
+		String output = null;
+		output = "loc=" + Math.round(this.getLocation().getX()*10.0)/10.0 + ", " + Math.round(this.getLocation().getY()*10.0)/10.0 + " color=" + "["
+				+ ColorUtil.red(this.getColor()) + ", " + ColorUtil.green(this.getColor()) + ", " + ColorUtil.blue(this.getColor())
 				+ "] size="+this.getSize()+" ";
 		return output;
 	}

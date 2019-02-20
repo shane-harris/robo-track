@@ -1,11 +1,18 @@
 package com.mycompany.a1;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.codename1.components.ToastBar;
+import com.codename1.messaging.Message;
+import com.codename1.ui.Form;
+import com.codename1.ui.Label;
 import com.codename1.ui.geom.Point2D;
+import com.codename1.ui.layouts.BoxLayout;
 
-public class GameWorld {
+public class GameWorld extends Form{
 	private ArrayList<GameObject> gameObjects;
 	private double width;
 	private double height;
@@ -18,51 +25,57 @@ public class GameWorld {
 	private EnergyStation energyStation;
 	private Drone drone;
 	private Base base;
-	
 
 	public GameWorld() {
 		this.width = 1024.0;
 		this.height = 768.0;
 		this.originX = 0.0;
 		this.originY = 0.0;
-		this.point = new Point2D(originX,originY);
+		this.lives = 3;
+		this.clock = 0;
+		this.point = new Point2D(originX, originY);
 
 	}
 
 	public void init() {
 		gameObjects = new ArrayList<GameObject>();
-		this.lives = 3;
-		this.clock = 0;
-		
+
 		gameObjects.add(Robot.getRobot());
-		for(int i=0; i<random.nextInt(5)+1;i++) {
+		for (int i = 0; i < random.nextInt(5) + 1; i++) {
 			drone = new Drone();
 			gameObjects.add(drone);
 		}
-		
-		for(int i=0; i<random.nextInt(6)+1;i++) {
+
+		for (int i = 0; i < random.nextInt(6) + 1; i++) {
 			energyStation = new EnergyStation();
 			gameObjects.add(energyStation);
 		}
-		base = new Base(point,1);
+		base = new Base(point, 1);
 		gameObjects.add(base);
-		
-		point = new Point2D(110,131);
+
+		point = new Point2D(110, 131);
 		base = new Base(point, 2);
 		gameObjects.add(base);
-		
-		point = new Point2D(200,191);
+
+		point = new Point2D(200, 191);
 		base = new Base(point, 3);
 		gameObjects.add(base);
-		
-		point = new Point2D(321,331);
+
+		point = new Point2D(321, 331);
 		base = new Base(point, 4);
 		gameObjects.add(base);
-		
-		point = new Point2D(610,631);
+
+		point = new Point2D(610, 631);
 		base = new Base(point, 5);
 		gameObjects.add(base);
 
+	}
+	
+	public int getClock(){
+		return this.clock;
+	}
+	public int getLives(){
+		return this.lives;
 	}
 
 	public void tick() {
@@ -80,6 +93,27 @@ public class GameWorld {
 		 * increments with each tick)
 		 */
 
+		// Game world has ticked
+		clock++;
+
+		for (GameObject gO : gameObjects) {
+			if (gO instanceof Moveable) {
+				((Moveable) gO).move(); // move sets location no need to call setLocation()
+			}
+			if (gO instanceof Robot) {
+				((Robot) gO).consumeEnergy(); // energy consumed after move
+			}
+			if (gO instanceof Drone) {
+				((Drone) gO).randomHeading();// aulters Drone heading after move
+			}
+			if (gO instanceof EnergyStation) {
+
+			}
+			if (gO instanceof Base) {
+
+			}
+		}
+
 	}
 
 	public void display() {
@@ -91,6 +125,33 @@ public class GameWorld {
 		 * (4) the robot’s current energy level and (5) robot’s current damage level.
 		 * All output should be appropriately labeled in easily readable format.
 		 */
+		/*Message display = new Message("This is a test");
+		OutputStream mess = "Please work";
+		PrintStream test = new PrintStream(mess);*/
+		
+		/*Form message = new Form();
+        message.add(new Label("Hope this works"));
+        //message.getToolbar().setTitleCentered(true);
+        message.show();*/
+        /*Label again = new Label("Try this now");
+        this.addComponent(again);
+        //this.show();
+        this.showNativeOverlay();*/
+		String displayAll="";
+		displayAll += "Lives= " + this.getLives() +" , ";
+		displayAll += "Clock= " + this.getClock() +"\n";
+		for(GameObject robot : gameObjects) {
+			if(robot instanceof Robot) {
+				displayAll += "Highest Base Reached= "+((Robot) robot).getLastBaseReached()+"\n";
+				displayAll += "Robot Energy Level = "+((Robot) robot).getEnergyLevel()+"% \n";
+				displayAll += "Robot Damage Level = "+((Robot) robot).getDamageLevel()+"% \n";
+			}
+		}
+		ToastBar.setDefaultMessageTimeout(20000);
+        ToastBar.showInfoMessage(displayAll);
+        ToastBar.setDefaultMessageTimeout(5000);
+        System.out.println(displayAll);
+		
 
 	}
 
@@ -119,6 +180,15 @@ public class GameWorld {
 		 * the “Appendix – CN1 Notes” below). Please see “Appendix – CN1 Notes” below
 		 * for also tips on how to print one digit after a decimal point in CN1.
 		 */
+		
+		String displayAll ="";
+		for(GameObject gO : gameObjects) {
+			displayAll += gO.toString();
+		}
+        ToastBar.setDefaultMessageTimeout(20000);
+        ToastBar.showInfoMessage(displayAll);
+        ToastBar.setDefaultMessageTimeout(2000);
+        System.out.println(displayAll);
 
 	}
 
@@ -133,6 +203,14 @@ public class GameWorld {
 		 * to be limited based on damage level, energy level, and maximum speed as
 		 * described above.
 		 */
+		int accelerationAmmount = 5; // ammount can be adjusted to tweak game play
+		for (GameObject gO : gameObjects) {
+			if (gO instanceof Robot) {
+				((Robot) gO).accelorateRobot(accelerationAmmount);
+				System.out.println("Robot speed is = "+((Robot) gO).getSpeed());
+			}
+		}
+		
 	}
 
 	public void brake() {
@@ -141,6 +219,11 @@ public class GameWorld {
 		 * player robot by a small amount. Note that the minimum speed for a robot is
 		 * zero.
 		 */
+		int accelerationAmmount = -5; // ammount can be adjusted to tweak game play
+		for (GameObject gO : gameObjects) {
+			if (gO instanceof Robot)
+				((Robot) gO).accelorateRobot(accelerationAmmount);
+		}
 	}
 
 	public void steerRight() {
@@ -150,6 +233,11 @@ public class GameWorld {
 		 * As above, this changes the direction of the robot’s steering wheel, not the
 		 * robot’s heading
 		 */
+		int adjustHeadingAmmount = 5; // ammount can be adjusted to tweak game play
+		for (GameObject gO : gameObjects) {
+			if (gO instanceof Robot)
+				((Robot) gO).steer(adjustHeadingAmmount);
+		}
 
 	}
 
@@ -162,9 +250,14 @@ public class GameWorld {
 		 * not directly (immediately) affect the robot’s heading. See the “tick”
 		 * command, below.
 		 */
+		int adjustHeadingAmmount = -5; // ammount can be adjusted to tweak game play
+		for (GameObject gO : gameObjects) {
+			if (gO instanceof Robot)
+				((Robot) gO).steer(adjustHeadingAmmount);
+		}
 	}
 
-	public void pretendBaseCollision(int num) {
+	public void pretendBaseCollision(int sequenceNumber) {
 		/*
 		 * ‘a number between 1-9’– PRETEND that the player robot has collided with the
 		 * base number x (which must have a value between 1-9); tell the game world that
@@ -174,6 +267,14 @@ public class GameWorld {
 		 * that the robot has now reached the next sequential base on the track (update
 		 * the lastBaseReached field of the robot).
 		 */
+		for (GameObject gO : gameObjects) {
+			if (gO instanceof Robot) {
+				if (sequenceNumber == ((Robot) gO).getLastBaseReached()+1)
+					((Robot) gO).updateLastBaseReached();
+			} //else
+				//ToastBar.showInfoMessage("Base number " + sequenceNumber + " is not the next base. proceded to base "
+						//+ (((Robot) gO).getLastBaseReached() + 1) + ".");
+		}
 
 	}
 
@@ -187,7 +288,30 @@ public class GameWorld {
 		 * light green), and add a new energy station with randomly-specified size and
 		 * location into the game.
 		 */
+		// For purpose of the simulation since i there are a random amout of energy
+		// stations i want to randomly pick which station is collided with. this loop
+		// will be removed after the game is fully implemented.
+		Random random = new Random();
+		int pickedStation;
+		final ArrayList<EnergyStation> energyStationList = new ArrayList<EnergyStation>();
+		for (GameObject eS : gameObjects) {
+			if (eS instanceof EnergyStation) {
+				energyStationList.add((EnergyStation) eS);
+			}
+		}
+		// Randomly selecting which station to collide Robot with
+		pickedStation = random.nextInt(energyStationList.size()) + 1;
 
+		for (GameObject gO : gameObjects) {
+			if (gO instanceof Robot) {
+				// finding instance of robot, charging Robot to capacity of randonly selected
+				// EnergyStation then reducing EnergyStations Calapity to ZERO.
+				((Robot) gO).chargeRobot(energyStationList.get(pickedStation).getCapacity());
+				energyStationList.get(pickedStation).transferEnergy();
+			}
+		}
+		energyStation = new EnergyStation();
+		gameObjects.add(energyStation);
 	}
 
 	public void pretendRobotCollision() {
@@ -202,6 +326,15 @@ public class GameWorld {
 		 * player robot not being able to move then the game stops (the player loses a
 		 * life).
 		 */
+		// Because there are no additional Robot objects the apply damage method will be
+		// called and damage will be applied. damage is double the damage applied when a
+		// drone collides with the player Robot
+		int fakeRobot = 20;
+		for(GameObject robot : gameObjects) {
+			if(robot instanceof Robot) {
+				((Robot) robot).applyDamage(fakeRobot);
+			}
+		}
 	}
 
 	public void pretendDroneCollision() {
@@ -211,6 +344,22 @@ public class GameWorld {
 		 * to the robot as described above under the description of drones and fades the
 		 * color of the robot (i.e., the robot color becomes lighter red).
 		 */
+		Random random = new Random();
+		int pickedDrone;
+		final ArrayList<Drone> droneList = new ArrayList<Drone>();
+		for (GameObject drone : gameObjects) {
+			if (drone instanceof Drone) {
+				droneList.add((Drone) drone);
+			}
+		}
+		// Randomly selecting which Drone to collide Robot with
+		pickedDrone = random.nextInt(droneList.size());
+
+		for (GameObject gO : gameObjects) {
+			if (gO instanceof Robot) {
+				((Robot) gO).applyDamage(droneList.get(pickedDrone).getAttack());
+			}
+		}
 
 	}
 
