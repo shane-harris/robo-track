@@ -8,6 +8,15 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import java.lang.String;
 
+/**
+ * This class initializes a GameWorld object.
+ * this class is a controller to the GameWorld class
+ * This class extends the Form class
+ * from com.codename1.ui 
+ * @author Shane Harris
+ * @version 1.0
+ *
+ */
 public class Game extends Form{
 	
 	private GameWorld gw;
@@ -18,6 +27,11 @@ public class Game extends Form{
 		
 	}
 	
+	/**
+	 * This class creates a form on the users device 
+	 * the form will contain a TextFild for the user
+	 * to imput commands to controls the game
+	 */
 	private void play() {
 		// code here to accept and
 		// execute user commands that

@@ -111,11 +111,12 @@ public abstract class Moveable extends GameObject {
 	}
 
 	/**
-	 * This method adjust the heading of this Moveable object This method prevents
-	 * the heading variable from being less than 0 or greater than 360
+	 * This method adjust the heading of this Moveable object 
+	 * This method prevents the heading variable from being less 
+	 * than 0 or greater than 359
 	 * 
-	 * @param direction the variable to which the heading is to be
-	 *                  increases/decreased by
+	 * @param direction is the variable that the heading is to be
+	 *        increases/decreased by.
 	 */
 	public void adjustHeading(int direction) {
 		if (this.heading + direction >= 360)

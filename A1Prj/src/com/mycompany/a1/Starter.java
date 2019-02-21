@@ -46,6 +46,9 @@ public class Starter {
         });        
     }
     
+    /**
+     * This method starts the Game
+     */
     public void start() {
         if(current != null){
             current.show();
