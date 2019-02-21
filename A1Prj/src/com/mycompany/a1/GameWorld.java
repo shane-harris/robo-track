@@ -16,8 +16,8 @@ import com.codename1.ui.geom.Point2D;
  */
 public class GameWorld extends Form{
 	private ArrayList<GameObject> gameObjects;
-	final private double width;
-	final private double height;
+	final private double WIDTH;
+	final private double HEIGHT;
 	private double originX;
 	private double originY;
 	private Point2D point;
@@ -34,8 +34,8 @@ public class GameWorld extends Form{
 	 * counter
 	 */
 	public GameWorld() {
-		this.width = 1024.0;
-		this.height = 768.0;
+		this.WIDTH = 1024.0;
+		this.HEIGHT = 768.0;
 		this.originX = 0.0;
 		this.originY = 0.0;
 		this.lives = 3;
@@ -282,7 +282,8 @@ public class GameWorld extends Form{
 			}
 		}
 		// Randomly selecting which station to collide Robot with
-		pickedStation = random.nextInt(energyStationList.size()) + 1;
+		pickedStation = random.nextInt(energyStationList.size())
+				;
 
 		for (GameObject gO : gameObjects) {
 			if (gO instanceof Robot) {

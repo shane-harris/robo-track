@@ -15,9 +15,9 @@ import com.codename1.ui.geom.Point2D;
 public class Drone extends Moveable{
 	private final int MAX_HEADING = 10;
 	private final int MIN_HEADING =  1;
-	private final int attackPower;
+	private final int ATTACK_POWER = 10;
 	private final static int MAX_SPEED = 50;
-	private final static int size = 4;
+	private final static int SIZE = 4;
 	
 	/**
 	 * This constructs a Drone object of size=4
@@ -25,10 +25,9 @@ public class Drone extends Moveable{
 	 * heading and location
 	 */
 	public Drone() {
-		super(MAX_SPEED, 0, size, ColorUtil.BLACK, setLocation());
+		super(MAX_SPEED, 0, SIZE, ColorUtil.BLACK, setLocation());
 		Random ran = new Random();
 		this.setHeading(ran.nextInt(360)); //sets random heading for
-		this.attackPower = 10;
 	}
 	
 	/**
@@ -36,7 +35,7 @@ public class Drone extends Moveable{
 	 * @return Integer of attack power value 10
 	 */
 	public int getAttack(){
-		return this.attackPower;
+		return this.ATTACK_POWER;
 	}
 	
 	/**

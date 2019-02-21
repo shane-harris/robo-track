@@ -54,83 +54,99 @@ public class Game extends Form{
 				if(sCommand.length() > 0) {
 					switch (sCommand.charAt(0)) {
 						case 'a':
-							ToastBar.showInfoMessage("Accelerating Robot");
+							ToastBar.showInfoMessage("Accelerating Robot +5");
+							System.out.println("Accelerating Robot +5");
 							gw.accelerate();
 							break;
 						case 'b':
-							ToastBar.showInfoMessage("Slowing Robot");
+							ToastBar.showInfoMessage("Slowing Robot -5");
+							System.out.println("Slowing Robot -5");
 							gw.brake();
 							break;
 						case 'l':
-							ToastBar.showInfoMessage("Steering Robot Left");
+							ToastBar.showInfoMessage("Steering Robot Left -5");
+							System.out.println("Steering Robot Left -5");
 							gw.steerLeft();
 							break;
 						case 'r':
-							ToastBar.showInfoMessage("Steering Robot Right");
+							ToastBar.showInfoMessage("Steering Robot Right +5");
+							System.out.println("Steering Robot Right +5");
 							gw.steerRight();
 						break;
 						case 'c':
 							ToastBar.showInfoMessage("PRETEND Robot collided with another robot");
+							System.out.println("PRETEND Robot collided with another robot");
 							gw.pretendRobotCollision();
 							break;
 						case '1':
 							ToastBar.showInfoMessage("PRETEND Robot collided with BASE #1");
+							System.out.println("PRETEND Robot collided with BASE #1");
 							gw.pretendBaseCollision(1);
 							break;
 						case '2':
 							ToastBar.showInfoMessage("PRETEND Robot collided with BASE #2");
+							System.out.println("PRETEND Robot collided with BASE #2");
 							gw.pretendBaseCollision(2);
 							break;
 						case '3':
 							ToastBar.showInfoMessage("PRETEND Robot collided with BASE #3");
+							System.out.println("PRETEND Robot collided with BASE #3");
 							gw.pretendBaseCollision(3);
 							break;
 						case '4':
 							ToastBar.showInfoMessage("PRETEND Robot collided with BASE #4");
+							System.out.println("PRETEND Robot collided with BASE #4");
 							gw.pretendBaseCollision(4);
 							break;
 						case '5':
 							ToastBar.showInfoMessage("PRETEND Robot collided with BASE #5");
-							gw.pretendBaseCollision(sCommand.charAt(0) -'0');
+							System.out.println("PRETEND Robot collided with BASE #5");
+							gw.pretendBaseCollision(5);
 							break;
 						case '6':
 							ToastBar.showInfoMessage("PRETEND Robot collided with BASE #6");
-							gw.pretendBaseCollision(sCommand.charAt(0) -'0');
+							System.out.println("PRETEND Robot collided with BASE #6");
+							gw.pretendBaseCollision(6);
 							break;
 						case '7':
 							ToastBar.showInfoMessage("PRETEND Robot collided with BASE #7");
-							gw.pretendBaseCollision(sCommand.charAt(0) -'0');
+							System.out.println("PRETEND Robot collided with BASE #7");
+							gw.pretendBaseCollision(7);
 							break;
 						case '8':
 							ToastBar.showInfoMessage("PRETEND Robot collided with BASE #8");
-							gw.pretendBaseCollision(sCommand.charAt(0) -'0');
+							System.out.println("PRETEND Robot collided with BASE #8");
+							gw.pretendBaseCollision(8);
 							break;
 						case '9':
 							ToastBar.showInfoMessage("PRETEND Robot collided with BASE #9");
-							gw.pretendBaseCollision(sCommand.charAt(0) -'0');
+							System.out.println("PRETEND Robot collided with BASE #9");
+							gw.pretendBaseCollision(9);
 							break;
 						case 'e':
 							ToastBar.showInfoMessage("PRETEND Robot collided with EnergyStation");
+							System.out.println("PRETEND Robot collided with EnergyStation");
 							gw.pretendEnergyStationCollision();
 							break;
 						case 'g':
 							ToastBar.showInfoMessage("PRETEND Robot collided with Drone got slower");
+							System.out.println("PRETEND Robot collided with Drone got slower");
 							gw.pretendDroneCollision();
 							break;					
 						case 't':
-							ToastBar.showInfoMessage("Tell GameWorld to tick the clock");
+							ToastBar.showInfoMessage("GameWorld clock has ticked");
+							System.out.println("GameWorld clock has ticked");
 							gw.tick();
 							break;
 						case 'd':
-							//ToastBar.showInfoMessage("Generate Display Lines to console");
 							gw.display();
 							break;
 						case 'm':
-							//ToastBar.showInfoMessage("Tell GameWorld to output map");
 							gw.map();
 							break;
 						case 'x'://Confirm the user wants to exit Game
 							ToastBar.showInfoMessage("Are you sure you want to Exit? Press y for YES or n for NO");
+							System.out.println("Are you sure you want to Exit? Press y for YES or n for NO");
 							confirmQuit = true;
 							break;
 						case 'y':
@@ -140,11 +156,13 @@ public class Game extends Form{
 						case 'n':
 							if(confirmQuit) {
 								ToastBar.showInfoMessage("Resuming Game!");
+								System.out.println("Resuming Game!");
 								confirmQuit = false;
 							}
 							break;
 						default:
 							ToastBar.showErrorMessage("Invalid Command");
+							System.out.println("Invalid Command");
 							myTextField.clear();
 							break;
 							

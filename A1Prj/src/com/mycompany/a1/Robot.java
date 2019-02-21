@@ -14,12 +14,12 @@ import com.codename1.ui.geom.Point2D;
  */
 public class Robot extends Moveable implements ISteerable {
 
-	final static int size = 10;
+	final static int SIZE = 10;
 	final int MAX_HEADING = 40;
 	final int MIN_HEADING = -40;
 	final int MAX_ENERGY = 100;
 	final int MAX_DAMAGE = 100;
-	private final int energyConsumptionRate;
+	private final int ENERGY_CONSUMPTION_RATE;
 	private int maxSpeed;
 	private int steeringDirection;
 	private int energyLevel;
@@ -43,7 +43,7 @@ public class Robot extends Moveable implements ISteerable {
 		this.energyLevel = 100;
 		this.damageLevel = 0;
 		this.lastBaseReached = 1;
-		this.energyConsumptionRate = 2;
+		this.ENERGY_CONSUMPTION_RATE = 2;
 		this.maxSpeed = 40;
 		this.steeringDirection = 0;
 	}
@@ -59,7 +59,7 @@ public class Robot extends Moveable implements ISteerable {
 	public static Robot getRobot() {
 		if (myRobot == null) {
 			Point2D center = new Point2D(0, 0);
-			myRobot = new Robot(10, 0, size, ColorUtil.BLUE, center);
+			myRobot = new Robot(10, 0, SIZE, ColorUtil.BLUE, center);
 		}
 		return myRobot;
 	}
@@ -248,16 +248,9 @@ public class Robot extends Moveable implements ISteerable {
 	 * (energyConsumptionRate) This method is called once per clock tick()
 	 */
 	public void consumeEnergy() {
-		this.setEnergyLevel(this.getEnergyLevel() - this.energyConsumptionRate);
+		this.setEnergyLevel(this.getEnergyLevel() - this.ENERGY_CONSUMPTION_RATE);
 	}
 
-	// There is a more elegant way to do this. Make correction when not sleepy
-	/*
-	 * public void adjustHeading(int direction) {
-	 * super.adjustHeading(this.getHeading() + direction); }
-	 */
-
-	// Will only accept direction incruments of 5; max 40 min -40
 	/**
 	 * This method increases/decreases this Robots steering direction in incruments
 	 * of 5 between a maximum of 40 (right) and a minimum of -40 (left)
